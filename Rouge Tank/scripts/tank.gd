@@ -2,6 +2,9 @@ extends KinematicBody2D
 
 var speed=200
 
+# Loads sscene from library
+var pre_bullet=preload("res://scenes/bullet.tscn")
+
 func _ready():
 	pass
 
@@ -22,7 +25,14 @@ func _process(delta):
 		
 	if Input.is_action_just_pressed("ui_shoot"):
 		print("boom")
-	
+		# Instances bullet
+		var bullet = pre_bullet.instance()
+		# Put on Muzzle position
+		bullet.global_position=$barrel/muzzle.global_position
+		#attach to parent
+		$"../".add_child(bullet)
+		##get_parent().add_child(bullet);
+			
 	translate( Vector2(dir_x, dir_y) * delta * speed )
 	
 	pass
