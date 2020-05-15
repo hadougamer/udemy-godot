@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 var speed=200
 
-# Loads sscene from library
+# Loads scene from library
 var pre_bullet=preload("res://scenes/bullet.tscn")
 
 func _ready():
@@ -24,14 +24,18 @@ func _process(delta):
 		dir_y+=1
 		
 	if Input.is_action_just_pressed("ui_shoot"):
-		print("boom")
-		# Instances bullet
-		var bullet = pre_bullet.instance()
-		# Put on Muzzle position
-		bullet.global_position=$barrel/muzzle.global_position
-		#attach to parent
-		$"../".add_child(bullet)
-		##get_parent().add_child(bullet);
+		# Get the number of bullets (on cannon bullet group)
+		# limit the number of bullets to max three (3)
+		if get_tree().get_nodes_in_group("cannon_bullet").size() < 3:
+			
+			# Instances bullet
+			var bullet = pre_bullet.instance()
+			# Put on Muzzle position
+			bullet.global_position=$barrel/muzzle.global_position
+			
+			#attach to parent
+			$"../".add_child(bullet)
+			##get_parent().add_child(bullet);
 			
 	translate( Vector2(dir_x, dir_y) * delta * speed )
 	

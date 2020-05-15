@@ -11,3 +11,9 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	translate( dir *  vel * delta )
+
+
+# When the bullet go out the screen
+func _on_notifier_screen_exited():
+	# Destroy this object (bullet)
+	queue_free();

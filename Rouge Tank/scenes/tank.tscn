@@ -4,22 +4,20 @@
 [ext_resource path="res://scripts/tank.gd" type="Script" id=2]
 [ext_resource path="res://sprites/tankDark_barrel1_outline.png" type="Texture" id=3]
 
-[node name="TankScene" type="Node2D"]
-
-[node name="tank" type="KinematicBody2D" parent="."]
+[node name="tank" type="KinematicBody2D"]
 script = ExtResource( 2 )
 
-[node name="poly" type="CollisionPolygon2D" parent="tank"]
+[node name="poly" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( 12.7766, 18.86, 18.8181, 13.3045, 18.8181, -13.9865, 13.1238, -18.1531, -13.334, -18.0836, -19.306, -11.9032, -19.0283, 15.735, -13.1951, 18.9294 )
 
-[node name="Sprite" type="Sprite" parent="tank"]
+[node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 
-[node name="barrel" type="Node2D" parent="tank"]
+[node name="barrel" type="Node2D" parent="."]
 
-[node name="muzzle" type="Position2D" parent="tank/barrel"]
-position = Vector2( 0, -30 )
-
-[node name="sprite" type="Sprite" parent="tank/barrel"]
+[node name="sprite" type="Sprite" parent="barrel"]
 texture = ExtResource( 3 )
 offset = Vector2( -0.323739, -9.43643 )
+
+[node name="muzzle" type="Position2D" parent="barrel"]
+position = Vector2( 0, -37 )
