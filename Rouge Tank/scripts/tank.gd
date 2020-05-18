@@ -5,7 +5,32 @@ var speed=200
 # Loads scene from library
 var pre_bullet=preload("res://scenes/bullet.tscn")
 
+# Tank skin list
+var bodies = [
+	"res://sprites/tankBody_bigRed.png",
+	"res://sprites/tankBody_blue.png",
+	"res://sprites/tankBody_dark.png",
+	"res://sprites/tankBody_darkLarge.png",
+	"res://sprites/tankBody_green.png",
+	"res://sprites/tankBody_huge.png",
+	"res://sprites/tankBody_red.png",
+	"res://sprites/tankBody_sand.png"
+]
+
+# barrels skin list
+var barrels = [
+	"res://sprites/tankDark_barrel1.png",
+	"res://sprites/tankDark_barrel1_outline.png",
+	"res://sprites/tankGreen_barrel1.png",
+	"res://sprites/tankRed_barrel1.png",
+	"res://sprites/tankSand_barrel1.png",
+	"res://sprites/tankSand_barrel3.png"
+]
+
 func _ready():
+	$Sprite.texture = load(bodies[1])
+	$"barrel/sprite".texture = load(barrels[4])
+	
 	pass
 
 func _process(delta):
