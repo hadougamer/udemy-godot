@@ -38,6 +38,7 @@ func _process(delta):
 			
 			#attach to parent
 			$"../".add_child(bullet)
+			$barrel/anim.play("fire")
 			##get_parent().add_child(bullet);
 
 	look_at(get_global_mouse_position())
