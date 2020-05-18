@@ -5,6 +5,10 @@ var speed=200
 # Loads scene from library
 var pre_bullet=preload("res://scenes/bullet.tscn")
 
+# Export variables are avaiable outside this object
+export(int, "bigRed", "blue", "dark", "darkLarge", "huge", "red", "sand") var body   = 3
+export var barrel = 4
+
 # Tank skin list
 var bodies = [
 	"res://sprites/tankBody_bigRed.png",
@@ -28,8 +32,8 @@ var barrels = [
 ]
 
 func _ready():
-	$Sprite.texture = load(bodies[1])
-	$"barrel/sprite".texture = load(barrels[4])
+	$Sprite.texture = load(bodies[ body ])
+	$"barrel/sprite".texture = load(barrels[ barrel ])
 	
 	pass
 

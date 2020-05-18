@@ -6,3 +6,8 @@
 
 [node name="tank" parent="." instance=ExtResource( 1 )]
 position = Vector2( 440.982, 326.264 )
+
+[node name="tank2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 373.719, 420.412 )
+body = 1
+barrel = 2
