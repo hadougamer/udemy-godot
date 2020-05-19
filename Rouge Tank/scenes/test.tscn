@@ -5,9 +5,11 @@
 [node name="Node2D" type="Node2D"]
 
 [node name="tank" parent="." instance=ExtResource( 1 )]
-position = Vector2( 440.982, 326.264 )
+position = Vector2( 378.595, 478.058 )
+rotation = -2.4258
+barrel = 1
 
 [node name="tank2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 373.719, 420.412 )
-body = 1
+position = Vector2( 311.332, 572.206 )
+rotation = -2.24456
 barrel = 2

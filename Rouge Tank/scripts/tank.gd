@@ -1,3 +1,4 @@
+tool
 extends KinematicBody2D
 
 var speed=200
@@ -5,9 +6,22 @@ var speed=200
 # Loads scene from library
 var pre_bullet=preload("res://scenes/bullet.tscn")
 
+# Bullet group name
+var BULLET_TANK_GROUP = "bullet-" + str(self)
+
 # Export variables are avaiable outside this object
-export(int, "bigRed", "blue", "dark", "darkLarge", "huge", "red", "sand") var body   = 3
-export var barrel = 4
+export(
+	int, 
+	"bigRed", 
+	"blue", 
+	"dark", 
+	"darkLarge", 
+	"huge", 
+	"red", 
+	"sand"
+) var body   = 3 setget set_body #register a callback
+
+export var barrel = 4 setget set_barrel
 
 # Tank skin list
 var bodies = [
@@ -32,12 +46,16 @@ var barrels = [
 ]
 
 func _ready():
+	print(self)
+	pass
+	
+func _draw():
 	$Sprite.texture = load(bodies[ body ])
 	$"barrel/sprite".texture = load(barrels[ barrel ])
-	
-	pass
 
 func _process(delta):
+	if Engine.editor_hint:
+		return
 	
 	var dir_x=0;
 	var dir_y=0;
@@ -55,7 +73,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_shoot"):
 		# Get the number of bullets (on cannon bullet group)
 		# limit the number of bullets to max three (3)
-		if get_tree().get_nodes_in_group("cannon_bullet").size() < 9:
+		if get_tree().get_nodes_in_group( BULLET_TANK_GROUP ).size() < 9:
 			
 			# Instances bullet
 			var bullet = pre_bullet.instance()
@@ -64,6 +82,9 @@ func _process(delta):
 			
 			# Modify the bullet rirection (to rotate)
 			bullet.dir = Vector2( cos(rotation), sin(rotation) ).normalized()
+			
+			# Add the bullet to the current cannon group			
+			bullet.add_to_group( BULLET_TANK_GROUP )
 			
 			#attach to parent
 			$"../".add_child(bullet)
@@ -75,3 +96,15 @@ func _process(delta):
 	translate( Vector2(dir_x, dir_y) * delta * speed )
 	
 	pass
+	
+func set_body(value):
+	body=value # change body value
+	if Engine.editor_hint:
+		# On editor mode
+		update() # redraw the object
+		
+func set_barrel(value):
+	barrel=value # change body value
+	if Engine.editor_hint:
+		# On editor mode
+		update() # redraw the object
