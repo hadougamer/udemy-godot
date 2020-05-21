@@ -1,8 +1,13 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://sprites/bulletRed3_outline.png" type="Texture" id=1]
 [ext_resource path="res://scripts/bullet.gd" type="Script" id=2]
 [ext_resource path="res://sprites/smokeWhite1.png" type="Texture" id=3]
+[ext_resource path="res://sprites/explosion1.png" type="Texture" id=4]
+[ext_resource path="res://sprites/explosionSmoke2.png" type="Texture" id=5]
+[ext_resource path="res://sprites/explosionSmoke4.png" type="Texture" id=6]
+[ext_resource path="res://sprites/explosionSmoke5.png" type="Texture" id=7]
+[ext_resource path="res://sprites/explosionSmoke3.png" type="Texture" id=8]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 4.93466
@@ -31,12 +36,40 @@ scale = 0.1
 scale_curve = SubResource( 5 )
 color_ramp = SubResource( 3 )
 
+[sub_resource type="Animation" id=7]
+resource_name = "explode"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("self_destruction:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 7 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("self_destruction:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
 [node name="Bullet" type="Area2D" groups=[
 "cannon_bullet",
 ]]
 script = ExtResource( 2 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="sprite" type="Sprite" parent="."]
 rotation = 1.5708
 texture = ExtResource( 1 )
 
@@ -57,4 +90,12 @@ lifetime = 0.3
 local_coords = false
 process_material = SubResource( 6 )
 texture = ExtResource( 3 )
+
+[node name="self_destruction" type="Sprite" parent="."]
+visible = false
+scale = Vector2( 0.7, 0.7 )
+texture = ExtResource( 7 )
+
+[node name="anim_self_destruction" type="AnimationPlayer" parent="."]
+anims/explode = SubResource( 7 )
 [connection signal="screen_exited" from="notifier" to="." method="_on_notifier_screen_exited"]
