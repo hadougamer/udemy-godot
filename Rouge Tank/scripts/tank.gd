@@ -93,7 +93,7 @@ func _process(delta):
 
 	look_at(get_global_mouse_position())
 				
-	translate( Vector2(dir_x, dir_y) * delta * speed )
+	move_and_slide( Vector2(dir_x, dir_y) * speed )
 	
 	pass
 	

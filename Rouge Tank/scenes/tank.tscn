@@ -50,6 +50,7 @@ tracks/2/keys = {
 [node name="tank" type="KinematicBody2D"]
 position = Vector2( -1008.73, 85.6696 )
 rotation = -1.47258
+collision_mask = 6
 script = ExtResource( 2 )
 
 [node name="poly" type="CollisionPolygon2D" parent="."]
