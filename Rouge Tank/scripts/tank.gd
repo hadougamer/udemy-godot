@@ -1,6 +1,9 @@
 tool
 extends KinematicBody2D
 
+# PI: 180 degrees
+const ROT_VEL = PI/2
+
 var speed=200
 
 # Loads scene from library
@@ -53,49 +56,57 @@ func _draw():
 	$Sprite.texture = load(bodies[ body ])
 	$"barrel/sprite".texture = load(barrels[ barrel ])
 
-func _process(delta):
+func _physics_process(delta):
 	if Engine.editor_hint:
 		return
 	
-	var dir_x=0;
-	var dir_y=0;
+#	var dir_x=0;
+#	var dir_y=0;
+#
+#	if Input.is_action_pressed("ui_right"):
+#		dir_x+=1
+#	elif Input.is_action_pressed("ui_left"):
+#		dir_x-=1
+#
+#	if Input.is_action_pressed("ui_up"):
+#		dir_y-=1
+#	elif Input.is_action_pressed("ui_down"):
+#		dir_y+=1
+#
+#	if Input.is_action_just_pressed("ui_shoot"):
+#		# Get the number of bullets (on cannon bullet group)
+#		# limit the number of bullets to max three (3)
+#		if get_tree().get_nodes_in_group( BULLET_TANK_GROUP ).size() < 9:
+#
+#			# Instances bullet
+#			var bullet = pre_bullet.instance()
+#			# Put on Muzzle position
+#			bullet.global_position=$barrel/muzzle.global_position
+#
+#			# Modify the bullet rirection (to rotate)
+#			bullet.dir = Vector2( cos(rotation), sin(rotation) ).normalized()
+#
+#			# Add the bullet to the current cannon group			
+#			bullet.add_to_group( BULLET_TANK_GROUP )
+#
+#			#attach to parent
+#			$"../".add_child(bullet)
+#			$barrel/anim.play("fire")
+#			##get_parent().add_child(bullet);
+#
+#	look_at(get_global_mouse_position())
+#
+#	move_and_slide( Vector2(dir_x, dir_y) * speed )
+
+	var rot = 0 #rotation
 	
 	if Input.is_action_pressed("ui_right"):
-		dir_x+=1
-	elif Input.is_action_pressed("ui_left"):
-		dir_x-=1
-		
-	if Input.is_action_pressed("ui_up"):
-		dir_y-=1
-	elif Input.is_action_pressed("ui_down"):
-		dir_y+=1
-		
-	if Input.is_action_just_pressed("ui_shoot"):
-		# Get the number of bullets (on cannon bullet group)
-		# limit the number of bullets to max three (3)
-		if get_tree().get_nodes_in_group( BULLET_TANK_GROUP ).size() < 9:
-			
-			# Instances bullet
-			var bullet = pre_bullet.instance()
-			# Put on Muzzle position
-			bullet.global_position=$barrel/muzzle.global_position
-			
-			# Modify the bullet rirection (to rotate)
-			bullet.dir = Vector2( cos(rotation), sin(rotation) ).normalized()
-			
-			# Add the bullet to the current cannon group			
-			bullet.add_to_group( BULLET_TANK_GROUP )
-			
-			#attach to parent
-			$"../".add_child(bullet)
-			$barrel/anim.play("fire")
-			##get_parent().add_child(bullet);
-
-	look_at(get_global_mouse_position())
-				
-	move_and_slide( Vector2(dir_x, dir_y) * speed )
+		rot += 1
 	
-	pass
+	if Input.is_action_pressed("ui_left"):
+		rot -= 1
+		
+	rotate( ROT_VEL * rot * delta )
 	
 func set_body(value):
 	body=value # change body value

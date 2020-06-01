@@ -54,8 +54,8 @@ func autodestroy():
 	$anim_self_destruction.play("explode")
 	
 	# Turns the colisions off
-	monitoring=false
-	monitorable=false
+	call_deferred("set_monitoring", false)
+	call_deferred("set_monitorable", false)
 	
 	# Waits the anim finished signal before continue
 	yield($anim_self_destruction, "animation_finished")
